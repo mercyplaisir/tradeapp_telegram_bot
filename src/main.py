@@ -1,29 +1,63 @@
-import requests
-
-from telegram.ext import *
+from telegram import KeyboardButton, ReplyKeyboardMarkup, Update
+from telegram.ext import CommandHandler, Updater, CallbackContext, MessageHandler, Filters
 
 TOKEN = "2097715946:AAEnO6Ce8GtgvC1Cxt4uhvV40ts2Dw3H3T0"
-updater = Updater(token= TOKEN,use_context=True)
-dispacher = updater.dispatcher
+# This is a sample Python script.
 
-def balance():
-    pass
+# Press Shift+F10 to execute it or replace it with your code.
+# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+# TOKENFOLDER = f"./token.txt"
+#
+# with open(TOKENFOLDER, "r") as f:
+#     token = json.load(f)
 
-def status():
-    pass
+updater = Updater(token=TOKEN)
 
-
-def trading_history():
-    pass
-
-def handle_message(update, context):
-    update.message.reply_text(f"you said {update.message.text}")
+dispatcher = updater.dispatcher  # .dispacther
+key_buttons = ['balance', 'trading history', 'status']
 
 
-dispacher.add_handler(MessageHandler(Filters.text, handle_message))
-dispacher.add_handler(MessageHandler(Filters.text, trading_history))
-dispacher.add_handler(MessageHandler(Filters.text, status))
-dispacher.add_handler(MessageHandler(Filters.text, balance))
+def start_command(update: Update, context: CallbackContext):
+    """Start Command
+    funcyions: .Creates Buttons"""
+    global key_buttons
+
+    buttons = [[KeyboardButton(button)] for button in key_buttons]
+    context.bot.send_message(chat_id=update.effective_chat.id, text='welcome to tradeapp',
+                             reply_markup=ReplyKeyboardMarkup(buttons))
 
 
-updater.start_polling()
+def send_balance(update: Update, context: CallbackContext):
+    update.message.reply_text("balance")
+
+
+def send_trading_history(update: Update, context: CallbackContext):
+    update.message.reply_text('trading history')
+
+
+def send_status(update: Update, context: CallbackContext):
+    update.message.reply_text('status')
+
+
+def message_handler(update: Update, context: CallbackContext):
+    text = update.message.text
+
+    if text == 'balance':
+        send_balance(update, context)
+    elif text == 'trading history':
+        send_trading_history(update, context)
+    elif text == 'status':
+        send_status(update, context)
+
+
+def main():
+    dispatcher.add_handler(CommandHandler("start", start_command))
+    dispatcher.add_handler(MessageHandler(Filters.text, message_handler))
+
+    print("started")
+    updater.start_polling()
+
+
+# Press the green button in the gutter to run the script.
+if __name__ == '__main__':
+    main()
