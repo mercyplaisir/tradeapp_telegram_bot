@@ -30,5 +30,5 @@ if __name__ == '__main__':
     }
     list
 
-    nn = [str(n) for n in commands.keys()]
+    nn = [json.dumps(str(n)) for n in commands.keys()]
     print(nn)
