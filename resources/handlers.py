@@ -35,13 +35,15 @@ def send_balance(update: Update, context: CallbackContext):
 def send_trading_history(update: Update, context: CallbackContext):
     # update.message.reply_text('trading history')
     req = requests.get(URL + HISTORY_ENDPOINT)
-    return req.json()
+    resp = req.json()
+    update.message.reply_text(resp)
 
 
 def send_status(update: Update, context: CallbackContext):
     # update.message.reply_text('status')
     req = requests.get(URL + STATUS_ENDPOINT)
-    return req.json()
+    resp = req.json()
+    update.message.reply_text(resp)
 
 
 def message_handler(update: Update, context: CallbackContext):
