@@ -37,6 +37,7 @@ def send_trading_history(update: Update, context: CallbackContext):
     # update.message.reply_text('trading history')
     req = requests.get(URL + HISTORY_ENDPOINT)
     unclean_resp = req.json()
+    
     resp = restructure(unclean_resp)
     update.message.reply_text(resp)
 
