@@ -9,6 +9,7 @@ from telegram import KeyboardButton, ReplyKeyboardMarkup, Update
 from telegram.ext import CallbackContext
 
 from resources.buttons import TlButtons
+from commons.utils import restructure
 
 URL = 'https://tradeappapiassistant.herokuapp.com/telegram'
 
@@ -35,7 +36,8 @@ def send_balance(update: Update, context: CallbackContext):
 def send_trading_history(update: Update, context: CallbackContext):
     # update.message.reply_text('trading history')
     req = requests.get(URL + HISTORY_ENDPOINT)
-    resp = req.json()
+    unclean_resp = req.json()
+    resp = restructure(resp)
     update.message.reply_text(resp)
 
 
