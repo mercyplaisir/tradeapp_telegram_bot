@@ -4,17 +4,15 @@ Contains handlers of the telegram button
 """
 from typing import Callable
 
+import requests
 from telegram import KeyboardButton, ReplyKeyboardMarkup, Update
 from telegram.ext import CallbackContext
 
 from resources.buttons import TlButtons
 
-import requests
-
-
 URL = 'https://tradeappapiassistant.herokuapp.com/telegram'
 
-HISTORY_ENDPOINT ='/history'
+HISTORY_ENDPOINT = '/history'
 STATUS_ENDPOINT = '/status'
 
 
@@ -23,7 +21,7 @@ def start_command(update: Update, context: CallbackContext):
     funcyions: .Creates Buttons"""
     key_buttons = commands.keys()
 
-    buttons = [[KeyboardButton(button)] for button in key_buttons]
+    buttons = [[KeyboardButton(str(button))] for button in key_buttons]
     context.bot.send_message(chat_id=update.effective_chat.id, text='welcome to tradeapp',
                              reply_markup=ReplyKeyboardMarkup(buttons))
     return True
@@ -35,14 +33,14 @@ def send_balance(update: Update, context: CallbackContext):
 
 
 def send_trading_history(update: Update, context: CallbackContext):
-    #update.message.reply_text('trading history')
-    req = requests.get(URL+HISTORY_ENDPOINT)
+    # update.message.reply_text('trading history')
+    req = requests.get(URL + HISTORY_ENDPOINT)
     return req.json()
 
 
 def send_status(update: Update, context: CallbackContext):
-    #update.message.reply_text('status')
-    req = requests.get(URL+STATUS_ENDPOINT)
+    # update.message.reply_text('status')
+    req = requests.get(URL + STATUS_ENDPOINT)
     return req.json()
 
 
