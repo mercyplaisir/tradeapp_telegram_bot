@@ -9,11 +9,6 @@ from telegram.ext import CallbackContext
 
 from resources.buttons import TlButtons
 
-commands = {
-    TlButtons.BALANCE: send_balance,
-    TlButtons.HISTORY: send_trading_history,
-    TlButtons.STATUS: send_status
-}
 
 
 
@@ -53,3 +48,10 @@ def message_handler(update: Update, context: CallbackContext):
     text = update.message.text
     command: Callable = commands[text]
     return command(update, context)
+
+
+commands = {
+    TlButtons.BALANCE: send_balance,
+    TlButtons.HISTORY: send_trading_history,
+    TlButtons.STATUS: send_status
+}
