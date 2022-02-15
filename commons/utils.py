@@ -5,7 +5,7 @@ Some useful functions
 import datetime
 import json
 
-#"""
+"""
 a = [["BTCUSDT", "28", "-1", "6gCrw2kRUAF9CvJDGP16IP", "1507725176595", "0.00000000", "10.00000000", "10.00000000",
       "10.00000000", "FILLED", "GTC", "MARKET", "SELL"],
      ["BTCUSDT", "28", "-1", "6gCrw2kRUAF9CvJDGP16IP", "1507725176595", "0.00000000", "10.00000000", "10.00000000",
@@ -15,18 +15,17 @@ a = [["BTCUSDT", "28", "-1", "6gCrw2kRUAF9CvJDGP16IP", "1507725176595", "0.00000
      ["BNBBTC", "28", "-1", "6gCrw2kRUAF9CvJDGP16IP", "1507725176595", "0.00000000", "10.00000000", "10.00000000",
       "10.00000000", "FILLED", "GTC", "MARKET", "BUY"],
      ["BNBBTC", "28", "-1", "6gCrw2kRUAF9CvJDGP16IP", "1507725176595", "0.00000000", "10.00000000", "10.00000000",
-      "10.00000000", "FILLED", "GTC", "MARKET", "BUY"]]#"""
+      "10.00000000", "FILLED", "GTC", "MARKET", "BUY"]]"""
 
 
 def order_format(order):
-    print(len(order))
     if len(order) == 0:
         return ''
-    symbols = order[0]
+    cryptopair = order[0]
     time = str(datetime.datetime.fromtimestamp(int(int(order[4])/1000)))
     order_type = order[-1]
 
-    return  f'{symbols} |   {time}  |   {order_type} \n '
+    return  f'{cryptopair} |   {time}  |   {order_type} \n '
 
 def restructure(orders):
     result = ""
