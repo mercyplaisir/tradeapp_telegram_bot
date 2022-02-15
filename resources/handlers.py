@@ -2,6 +2,7 @@
 
 Contains handlers of the telegram button
 """
+import json
 from typing import Callable
 
 import requests
@@ -36,8 +37,8 @@ def send_balance(update: Update, context: CallbackContext):
 def send_trading_history(update: Update, context: CallbackContext):
     # update.message.reply_text('trading history')
     req = requests.get(URL + HISTORY_ENDPOINT)
-    unclean_resp = req.json()
-    
+    unclean_resp = json.loads(req.json())
+
     resp = restructure(unclean_resp)
     update.message.reply_text(resp)
 
