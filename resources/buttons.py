@@ -5,7 +5,7 @@ from enum import Enum
 class TlButtons(Enum):
     BALANCE = 'balance'
     STATUS = 'status'
-    HISTORY = 'history'
+    TRADING_HISTORY = 'trading history'
 
     def __str__(self):
         return self.value

@@ -52,6 +52,6 @@ def message_handler(update: Update, context: CallbackContext):
 
 commands = {
     TlButtons.BALANCE: send_balance,
-    TlButtons.HISTORY: send_trading_history,
+    TlButtons.TRADING_HISTORY: send_trading_history,
     TlButtons.STATUS: send_status
 }
