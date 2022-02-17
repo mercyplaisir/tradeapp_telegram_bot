@@ -11,7 +11,6 @@ decorator==5.1.1
 entrypoints==0.4
 executing==0.8.2
 idna==3.3
-ipykernel==6.9.0
 ipython==8.0.1
 jedi==0.18.1
 jupyter-client==7.1.2

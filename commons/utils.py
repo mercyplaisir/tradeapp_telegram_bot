@@ -2,20 +2,15 @@
 
 Some useful functions
 """
+from ast import Pass
 import datetime
 import json
 
-"""
-a = [["BTCUSDT", "28", "-1", "6gCrw2kRUAF9CvJDGP16IP", "1507725176595", "0.00000000", "10.00000000", "10.00000000",
-      "10.00000000", "FILLED", "GTC", "MARKET", "SELL"],
-     ["BTCUSDT", "28", "-1", "6gCrw2kRUAF9CvJDGP16IP", "1507725176595", "0.00000000", "10.00000000", "10.00000000",
-      "10.00000000", "FILLED", "GTC", "MARKET", "BUY"],
-     ["BNBBTC", "28", "-1", "6gCrw2kRUAF9CvJDGP16IP", "1507725176595", "0.00000000", "10.00000000", "10.00000000",
-      "10.00000000", "FILLED", "GTC", "MARKET", "BUY"],[],
-     ["BNBBTC", "28", "-1", "6gCrw2kRUAF9CvJDGP16IP", "1507725176595", "0.00000000", "10.00000000", "10.00000000",
-      "10.00000000", "FILLED", "GTC", "MARKET", "BUY"],
-     ["BNBBTC", "28", "-1", "6gCrw2kRUAF9CvJDGP16IP", "1507725176595", "0.00000000", "10.00000000", "10.00000000",
-      "10.00000000", "FILLED", "GTC", "MARKET", "BUY"]]"""
+
+# ORDERS_EXEMPLE:List = [
+# ["BTCUSDT", "28", "-1", "6gCrw2kRUAF9CvJDGP16IP", "1507725176595", "0.00000000", "10.00000000", "10.00000000",
+#     "10.00000000", "FILLED", "GTC", "MARKET", "SELL"],
+#  
 
 
 def order_format(order):
@@ -35,6 +30,6 @@ def restructure(orders):
 
 
 if __name__ == '__main__':
-    """main func"""
-    
-    print(restructure(a))
+    """main func"""   
+    pass
+    # print(restructure(a))

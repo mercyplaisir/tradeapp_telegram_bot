@@ -4,6 +4,7 @@ from enum import Enum
 
 
 class TlButtons(Enum):
+    """TELEGRAM Buttons"""
     BALANCE = 'balance'
     STATUS = 'status'
     TRADING_HISTORY = 'trading history'
@@ -28,7 +29,7 @@ if __name__ == '__main__':
         TlButtons.TRADING_HISTORY: 'send_trading_history',
         TlButtons.STATUS: 'send_status'
     }
-    list
+   
 
     nn = [json.dumps(str(n)) for n in commands.keys()]
     print(nn)

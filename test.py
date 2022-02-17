@@ -1,13 +1,11 @@
+"""Just for testing some tools"""
 import requests
 
 
 
-url = 'https://tradeappapiassistant.herokuapp.com/telegram'
+URL = 'https://tradeappapiassistant.herokuapp.com/telegram'
+STATUS_ENDPOINT = '/history'
 
-status_endpoint = '/history'
-
-
-req=requests.get(url+status_endpoint)
+req=requests.get(URL+STATUS_ENDPOINT)
 resp = req.json()
 print()
-
