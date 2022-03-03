@@ -2,6 +2,7 @@
 
 Contains handlers of the telegram button
 """
+from contextvars import Context
 import json
 from typing import Callable
 
@@ -17,6 +18,8 @@ URL = 'https://tradeappapiassistant.herokuapp.com/telegram'
 HISTORY_ENDPOINT = '/history'
 STATUS_ENDPOINT = '/status'
 
+BINANCE_API_URL = 'https://api.binance.com'
+
 
 def start_command(update: Update, context: CallbackContext):
     """Start Command
@@ -26,9 +29,12 @@ def start_command(update: Update, context: CallbackContext):
     
     buttons = [[KeyboardButton(str(button))] for button in TlButtons]
 
-    context.bot.send_message(chat_id=update.effective_chat.id, text='welcome to tradeapp',
+
+    context.bot.send_message(chat_id=update.effective_chat.id, text="""
+    click:
+            /crypto BNBBTC: for getting it's price""",
                              reply_markup=ReplyKeyboardMarkup(buttons))
-    return True
+    
 
 
 def send_balance(update: Update, context: CallbackContext):
@@ -58,12 +64,22 @@ def send_status(update: Update, context: CallbackContext):
 def message_handler(update: Update, context: CallbackContext):
     """Message handler from telegram """
     text = update.message.text
-    command: Callable = commands[text]
+    command: Callable = message_commands[text]
     return command(update, context)
 
+def get_crypto_price(update:Update,context:CallbackContext):
+    """return the pricce of the given crypto
+    ex: /price BNBBTC"""
+    cryptopair = context.args[0]
+    print(cryptopair)
 
-commands = {
+    data:dict = requests.get(BINANCE_API_URL+f'/api/v3/ticker/price?symbol={cryptopair}').json()
+    symbol,price=data.values()
+    update.message.reply_text(f"Price of {symbol} is {price}")
+
+message_commands = {
     TlButtons.BALANCE: send_balance,
     TlButtons.TRADING_HISTORY: send_trading_history,
-    TlButtons.STATUS: send_status
+    TlButtons.STATUS: send_status,
+    
 }
