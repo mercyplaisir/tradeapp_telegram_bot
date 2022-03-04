@@ -16,7 +16,7 @@ from typing import Dict, List, Tuple
 #  
 
 
-def order_format(order):
+def _order_format(order):
     if len(order) == 0:
         return ''
     cryptopair = order[0]
@@ -28,10 +28,10 @@ def order_format(order):
 def order_restructure(orders):
     result = ""
     for order in orders:
-        result+=order_format(order)
+        result+=_order_format(order)
     return result
 
-def balance_restructure(data):
+def _balance_format(data):
     result = ''
     items = data.items()
     for item in items:
@@ -39,5 +39,9 @@ def balance_restructure(data):
         result += f'{coin} : {balance} \n'
     return result
 
+
+def balance_restructure(items):
+    n = {item.get('coin'): item.get('free') for item in items  if float(item.get('free'))!=0}
+    return _balance_format(n)
 
 

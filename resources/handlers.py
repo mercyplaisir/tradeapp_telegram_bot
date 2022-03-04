@@ -49,7 +49,7 @@ def start_command(update: Update, context: CallbackContext):
 def send_balance(update: Update, context: CallbackContext):
     """Retrieve balance from binance api and send it to the telegrambot"""
     # update.message.reply_text("balance")
-    _data = client.get_all_coins_info()
+    _data = client.get_all_coins_info(recvWindow=60000)
     data = balance_restructure(_data)
     update.message.reply_text(data)
     # return True
