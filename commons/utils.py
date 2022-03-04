@@ -4,7 +4,10 @@ Some useful functions
 """
 from ast import Pass
 import datetime
+import hashlib
+import hmac
 import json
+from typing import Dict, List, Tuple
 
 
 # ORDERS_EXEMPLE:List = [
@@ -22,14 +25,19 @@ def order_format(order):
 
     return  f'{cryptopair} |   {time}  |   {order_type} \n '
 
-def restructure(orders):
+def order_restructure(orders):
     result = ""
     for order in orders:
         result+=order_format(order)
     return result
 
+def balance_restructure(data):
+    result = ''
+    items = data.items()
+    for item in items:
+        coin,balance = item
+        result += f'{coin} : {balance} \n'
+    return result
 
-if __name__ == '__main__':
-    """main func"""   
-    pass
-    # print(restructure(a))
+
+

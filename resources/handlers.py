@@ -2,16 +2,21 @@
 
 Contains handlers of the telegram button
 """
-from contextvars import Context
+import os
 import json
 from typing import Callable
+from dotenv import load_dotenv,find_dotenv
 
 import requests
 from telegram import KeyboardButton, ReplyKeyboardMarkup, Update
 from telegram.ext import CallbackContext
+from binance.client import Client
+
 
 from resources.buttons import TlButtons
-from commons.utils import restructure
+from commons.utils import order_restructure,balance_restructure
+
+load_dotenv(find_dotenv())
 
 URL = 'https://tradeappapiassistant.herokuapp.com/telegram'
 
@@ -20,6 +25,10 @@ STATUS_ENDPOINT = '/status'
 
 BINANCE_API_URL = 'https://api.binance.com'
 
+binance_public_key = os.getenv('BINANCEPUBLICKEY')
+binance_secret_key = os.getenv('BINANCEPRIVATEKEY')
+
+client = Client(binance_public_key,binance_secret_key)
 
 def start_command(update: Update, context: CallbackContext):
     """Start Command
@@ -39,8 +48,11 @@ def start_command(update: Update, context: CallbackContext):
 
 def send_balance(update: Update, context: CallbackContext):
     """Retrieve balance from binance api and send it to the telegrambot"""
-    update.message.reply_text("balance")
-    return True
+    # update.message.reply_text("balance")
+    _data = client.get_all_coins_info()
+    data = balance_restructure(_data)
+    update.message.reply_text(data)
+    # return True
 
 
 def send_trading_history(update: Update, context: CallbackContext):
@@ -49,7 +61,7 @@ def send_trading_history(update: Update, context: CallbackContext):
     req = requests.get(URL + HISTORY_ENDPOINT)
     unclean_resp = json.loads(req.json())
 
-    resp = restructure(unclean_resp)
+    resp = order_restructure(unclean_resp)
     update.message.reply_text(resp)
 
 

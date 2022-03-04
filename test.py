@@ -1,6 +1,6 @@
-d={1:23,
-6:46}
+import os
+from dotenv import load_dotenv,find_dotenv
 
-n,j =d.values()
+load_dotenv(find_dotenv())
 
-print(n,j)
+print(os.getenv('BINANCEPUBLICKEY'))
