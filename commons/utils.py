@@ -20,7 +20,7 @@ def _order_format(order):
     if len(order) == 0:
         return ''
     cryptopair = order[0]
-    time = str(datetime.datetime.fromtimestamp(int(int(order[4])/1000)))
+    time = str(datetime.datetime.fromtimestamp(float(float(order[4])/1000)))
     order_type = order[-1]
 
     return  f'{cryptopair} |   {time}  |   {order_type} \n '
