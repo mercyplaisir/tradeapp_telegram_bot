@@ -94,7 +94,10 @@ def get_coin_value(update:Update,context:CallbackContext):
     ex: /value BNB"""
     coin = context.args[0] #BNB
     balance = client.get_asset_balance(asset=coin,recvWindow=60000)['free']
-    update.message.reply_text(f"Price of {coin} is {balance}")
+    data:dict = requests.get(BINANCE_API_URL+f'/api/v3/ticker/price?symbol={coin}USDT').json()
+    symbol,price=data.values()
+    value = balance*price
+    update.message.reply_text(f"value of your {coin} is {value}")
     print(f"send balance of {coin}")
 
 message_commands = {
