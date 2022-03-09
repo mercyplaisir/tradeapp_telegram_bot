@@ -1,6 +1,2 @@
-import os
-from dotenv import load_dotenv,find_dotenv
-
-load_dotenv(find_dotenv())
-
-print(os.getenv('BINANCEPUBLICKEY'))
+d={45:413}
+print(d.values())

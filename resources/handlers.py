@@ -83,11 +83,19 @@ def get_crypto_price(update:Update,context:CallbackContext):
     """return the pricce of the given crypto
     ex: /price BNBBTC"""
     cryptopair = context.args[0]
-    print(cryptopair)
 
     data:dict = requests.get(BINANCE_API_URL+f'/api/v3/ticker/price?symbol={cryptopair}').json()
     symbol,price=data.values()
     update.message.reply_text(f"Price of {symbol} is {price}")
+    print("send price of ",cryptopair)
+
+def get_coin_value(update:Update,context:CallbackContext):
+    """return the value of the coin that i habe in usdt
+    ex: /value BNB"""
+    coin = context.args[0] #BNB
+    balance = client.get_asset_balance(asset=coin,recvWindow=60000)['free']
+    update.message.reply_text(f"Price of {coin} is {balance}")
+    print(f"send balance of {coin}")
 
 message_commands = {
     TlButtons.BALANCE: send_balance,

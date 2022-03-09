@@ -7,7 +7,8 @@ from telegram.ext import (
 from resources.handlers import (
                                 start_command,
                                 message_handler,
-                                get_crypto_price
+                                get_crypto_price,
+                                get_coin_value
                                 )
 
 TOKEN = "2097715946:AAEnO6Ce8GtgvC1Cxt4uhvV40ts2Dw3H3T0"
@@ -21,6 +22,7 @@ if __name__ == '__main__':
 
     dispatcher.add_handler(CommandHandler("start", start_command))
     dispatcher.add_handler(CommandHandler("crypto", get_crypto_price))
+    dispatcher.add_handler(CommandHandler("value", get_coin_value))
 
     dispatcher.add_handler(MessageHandler(Filters.text, message_handler))
 

@@ -4,6 +4,7 @@ Some useful functions
 """
 from ast import Pass
 import datetime
+import time
 import hashlib
 import hmac
 import json
@@ -20,10 +21,10 @@ def _order_format(order):
     if len(order) == 0:
         return ''
     cryptopair = order[0]
-    time = str(datetime.datetime.fromtimestamp(float(float(order[4])/1000)))
+    tt = str(datetime.datetime.fromtimestamp(float(float(order[4])/1000)))
     order_type = order[-1]
 
-    return  f'{cryptopair} |   {time}  |   {order_type} \n '
+    return  f'{cryptopair} |   {tt}  |   {order_type} \n '
 
 def order_restructure(orders):
     result = ""
