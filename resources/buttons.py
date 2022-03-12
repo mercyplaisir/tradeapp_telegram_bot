@@ -8,6 +8,9 @@ class TlButtons(Enum):
     BALANCE = 'balance'
     STATUS = 'status'
     TRADING_HISTORY = 'trading history'
+    ALL = 'all infos'
+    ERROR = 'erreur'
+    PROFIT = 'profit'
 
     def __str__(self):
         return self.value

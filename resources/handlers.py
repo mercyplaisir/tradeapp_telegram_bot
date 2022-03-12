@@ -18,10 +18,15 @@ from commons.utils import order_restructure,balance_restructure
 
 load_dotenv(find_dotenv())
 
-URL = 'https://tradeappapiassistant.herokuapp.com/telegram'
+# URL = 'https://tradeappapiassistant.herokuapp.com/telegram'
+
+URL = 'http://localhost:5000/telegram'
 
 HISTORY_ENDPOINT = '/history'
 STATUS_ENDPOINT = '/status'
+ERROR_ENDPOINT = '/error'
+PROFIT_ENDPOINT = '/profit'
+ALL_ENDPOINT = '/all'
 
 BINANCE_API_URL = 'https://api.binance.com'
 
@@ -33,10 +38,10 @@ client = Client(binance_public_key,binance_secret_key)
 def start_command(update: Update, context: CallbackContext):
     """Start Command
     funcyions: .Creates Buttons"""
-    # key_buttons = commands.keys()
-    # buttons = [[KeyboardButton(str(button))] for button in key_buttons]
+    key_buttons = message_commands.keys()
+    buttons = [[KeyboardButton(str(button))] for button in key_buttons]
     
-    buttons = [[KeyboardButton(str(button))] for button in TlButtons]
+    # buttons = [[KeyboardButton(str(button))] for button in TlButtons]
 
 
     context.bot.send_message(chat_id=update.effective_chat.id, text="""
@@ -100,9 +105,27 @@ def get_coin_value(update:Update,context:CallbackContext):
     update.message.reply_text(f"value of your {coin} is {value}")
     print(f"send balance of {coin}")
 
+def send_error(update:Update,context:CallbackContext):
+    """send error to the front end"""
+    error = requests.get(URL+ERROR_ENDPOINT).json()
+    update.message.reply_text(error)
+    
+def send_all_info(update:Update,context:CallbackContext):
+    """send all info to frontend"""
+    info = requests.get(URL+ALL_ENDPOINT).json()
+    update.message.reply_text(info)
+
+def send_profit(update:Update,context:CallbackContext):
+    """send profit to the frontend"""
+    profit = requests.get(URL+PROFIT_ENDPOINT).json()
+    update.message.reply_text(profit)
+
 message_commands = {
-    TlButtons.BALANCE: send_balance,
-    TlButtons.TRADING_HISTORY: send_trading_history,
-    TlButtons.STATUS: send_status,
+    'balance': send_balance,
+    'trading history': send_trading_history,
+    'status': send_status,
+    'error': send_error,
+    'all': send_all_info,
+    'profit': send_profit
     
 }
