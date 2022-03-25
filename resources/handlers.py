@@ -13,18 +13,17 @@ from telegram.ext import CallbackContext
 from binance.client import Client
 
 
-from resources.buttons import TlButtons
 from commons.utils import order_restructure,balance_restructure
 
 load_dotenv(find_dotenv())
 
 # URL = 'https://tradeappapiassistant.herokuapp.com/telegram'
 
-URL = 'http://localhost:5000/telegram'
+URL = 'http://localhost:5000/get'
 
-HISTORY_ENDPOINT = '/history'
+HISTORY_ENDPOINT = '/orders'
 STATUS_ENDPOINT = '/status'
-ERROR_ENDPOINT = '/error'
+ERROR_ENDPOINT = '/errors'
 PROFIT_ENDPOINT = '/profit'
 ALL_ENDPOINT = '/all'
 
@@ -64,9 +63,7 @@ def send_trading_history(update: Update, context: CallbackContext):
     """Retrieve trading history from api assistant end send it to the telegrambot"""
     # update.message.reply_text('trading history')
     req = requests.get(URL + HISTORY_ENDPOINT)
-    unclean_resp = json.loads(req.json())
-
-    resp = order_restructure(unclean_resp)
+    resp = req.json()
     update.message.reply_text(resp)
 
 
